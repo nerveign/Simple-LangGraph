@@ -12,11 +12,9 @@ load_dotenv()
 API_KEY = os.getenv("OPENAI_API_KEY")
 llm = ChatOpenAI(model="gpt-4o-mini", api_key=API_KEY)
 
-# Definisi state
 class State(TypedDict):
     messages: Annotated[list, add_messages]
     message_type: str | None
-
 
 class MessageClassifier(BaseModel):
     message_type: Literal["emotional", "logical"] = Field(
@@ -24,7 +22,6 @@ class MessageClassifier(BaseModel):
         description="Classify if the message requires an emotional (therapist) or logical response."
     )
 
-# Node: universal normalizer
 def universal_normalizer(state: State):
     last_message = state["messages"][-1].content.lower().strip()
     return {"messages": [{"role": "assistant", "content": last_message}]}
