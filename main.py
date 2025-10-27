@@ -26,7 +26,7 @@ class MessageClassifier(BaseModel):
 
 # Node: get user input
 def get_input_user(state: State):
-    user_input = input("Enter your message: ")
+    user_input = input("Enter the message: ")
     return {"messages": [{"role": "user", "content": user_input}]}
 
 # Node: universal normalizer

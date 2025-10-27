@@ -1,2 +1,31 @@
+# Virtual environment
+.venv/
 venv/
+
+# Cache & build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.db
+
+# Env files
 .env
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# UV cache & lock
+.uv/
+uv.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test & coverage
+htmlcov/
+.coverage
+.pytest_cache/
