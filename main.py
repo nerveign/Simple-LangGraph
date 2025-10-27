@@ -40,6 +40,7 @@ def message_classifier(state: State):
         },
         {"role": "user", "content": last_message}
     ])
+
     return {"message_type": result.message_type}
 
 def router(state: State):
@@ -68,14 +69,7 @@ def therapist_agent(state: State):
     
     reply = llm.invoke(messages)
 
-    return {
-        "messages": [
-            {
-            "role":"assistant",
-            "content": reply.content
-            }
-        ]
-    }
+    return {"messages": [{"role":"assistant", "content": reply.content}]}
 
 
 def logical_agent(state: State):
