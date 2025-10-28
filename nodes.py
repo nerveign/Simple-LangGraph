@@ -3,6 +3,7 @@ from pydantic import Field, BaseModel
 from typing_extensions import TypedDict
 from langgraph.graph.message import add_messages
 from config import llm
+import re
 
 class State(TypedDict):
     messages: Annotated[list, add_messages]
@@ -14,9 +15,16 @@ class MessageClassifier(BaseModel):
         description="Classify if the message requires an emotional (therapist) or logical response."
     )
 
+def clean_message(text: str):
+    cleaned_text = text.lower()
+    cleaned_text = re.sub(r'[^a-zA-Z0-9\s]', '', cleaned_text)  
+    cleaned_text = " ".join(cleaned_text.split())
+    return cleaned_text
+
 def universal_normalizer(state: State):
-    last_message = state["messages"][-1].content.lower().strip()
-    return {"messages": [{"role": "assistant", "content": last_message}]}
+    last_message = state["messages"][-1].content
+    cleaned_message = clean_message(last_message)
+    return {"messages": [{"role": "assistant", "content": cleaned_message}]}
 
 def message_classifier(state: State):
     last_message = state["messages"][-1].content
