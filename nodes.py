@@ -60,9 +60,7 @@ def therapist_agent(state: State):
     ]
     
     reply = llm.invoke(messages)
-
     return {"messages": [{"role":"assistant", "content": reply.content}]}
-
 
 def logical_agent(state: State):
     last_message = state["messages"][-1]
